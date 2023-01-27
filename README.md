@@ -1,7 +1,10 @@
 # server-rendering
 
-3D Dicom Annotation Tool 
+![alt text](https://github.com/jykkim111/server-rendering/blob/main/images/sample1.png)
+![alt text](https://github.com/jykkim111/server-rendering/blob/main/images/sample2.png)
 
+
+3D Dicom Annotation Tool 
 
 This application is a DICOM viewer that may view CT image files and annotate them. 
 
