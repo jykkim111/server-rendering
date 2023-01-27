@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B195790C-B12F-4213-8E40-AAD169E3E2A6}</ProjectGuid>
+    <Keyword>QtVS_v304</Keyword>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0.19041.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.19041.0</WindowsTargetPlatformVersion>
+    <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
+    <Import Project="$(QtMsBuild)\qt_defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdparty\spdlog-1.8.1\lib\$(Platform)\$(Configuration);$(SolutionDir)3rdparty\yaml-cpp-0.6.3\lib\$(Platform)\$(Configuration);$(SolutionDir)\3rdparty\OpenGL\lib;$(SolutionDir)\3rdparty\glfw-3.3.2\lib-vc2017;$(SolutionDir)build\lib\$(Platform)\$(Configuration);$(CUDA_PATH)\lib\$(Platform);$(Qt_LIBPATH_);$(SolutionDir)\3rdparty\boost_1_75_0\stage\lib;$(SolutionDir)\3rdparty\libjpegturbo\lib\x64_Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>CgipCommon.lib;CgipException.lib;CgipIO.lib;glfw3.lib;opengl32.lib;spdlogd.lib;libyaml-cppmdd.lib;$(Qt_LIBS_);jpeg8.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ClCompile>
+      <OpenMPSupport>true</OpenMPSupport>
+      <AdditionalIncludeDirectories>GeneratedFiles\$(ConfigurationName);GeneratedFiles;$(SolutionDir)\3rdparty\eigen-3.3.7\include;$(SolutionDir)\3rdparty\png++-0.2.9\include;$(SolutionDir)\3rdparty\libpng-1.6.37\include;$(SolutionDir)\3rdparty\spdlog-1.8.1\include;$(SolutionDir)\3rdparty\glad\src;$(SolutionDir)\3rdparty\bitmap;$(SolutionDir)\3rdparty\glfw-3.3.2\include;$(SolutionDir)\3rdparty\OpenGL\includes;$(SolutionDir)\glad\include;$(SolutionDir)\3rdparty\nlohmann_json-3.7.3\include;$(SolutionDir)\3rdparty\yaml-cpp-0.6.3\include;$(Qt_INCLUDEPATH_);$(CUDA_PATH)\include;$(SolutionDir)\3rdparty\websocketpp-master;$(SolutionDir)\3rdparty\boost_1_75_0;$(SolutionDir)\3rdparty\cpp-base64-master;$(SolutionDir)\3rdparty\libjpegturbo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>if not exist "$(SolutionDir)build\include\$(ProjectName)" mkdir "$(SolutionDir)build\include\$(ProjectName)"
+copy "$(ProjectDir)*.h" "$(SolutionDir)build\include\$(ProjectName)\"
+
+if not exist "$(SolutionDir)build\lib\$(Platform)\$(Configuration)" mkdir "$(SolutionDir)build\lib\$(Platform)\$(Configuration)"
+move "$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName).lib" "$(SolutionDir)build\lib\$(Platform)\$(Configuration)\"
+
+if not exist "$(SolutionDir)build\bin\$(Platform)\$(Configuration)" mkdir "$(SolutionDir)build\bin\$(Platform)\$(Configuration)"
+copy "$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName).dll" "$(SolutionDir)build\bin\$(Platform)\$(Configuration)\"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdparty\spdlog-1.8.1\lib\$(Platform)\$(Configuration);$(SolutionDir)3rdparty\yaml-cpp-0.6.3\lib\$(Platform)\$(Configuration);$(SolutionDir)\3rdparty\OpenGL\lib;$(SolutionDir)\3rdparty\glfw-3.3.2\lib-vc2017;$(SolutionDir)build\lib\$(Platform)\$(Configuration);$(Qt_LIBPATH_);$(CUDA_PATH)\lib\$(Platform);$(SolutionDir)\3rdparty\boost_1_75_0\stage\lib;$(SolutionDir)\3rdparty\libjpegturbo\lib\x64_Release;C:\Qt\5.14.2\msvc2017_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>CgipCommon.lib;CgipException.lib;CgipIO.lib;glfw3.lib;opengl32.lib;spdlog.lib;libyaml-cppmd.lib;$(Qt_LIBS_);jpeg8.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ClCompile>
+      <OpenMPSupport>true</OpenMPSupport>
+      <AdditionalIncludeDirectories>GeneratedFiles\$(ConfigurationName);GeneratedFiles;$(SolutionDir)\3rdparty\eigen-3.3.7\include;$(SolutionDir)\3rdparty\png++-0.2.9\include;$(SolutionDir)\3rdparty\libpng-1.6.37\include;$(SolutionDir)\3rdparty\spdlog-1.8.1\include;$(SolutionDir)\3rdparty\glad\src;$(SolutionDir)\3rdparty\bitmap;$(SolutionDir)\3rdparty\glfw-3.3.2\include;$(SolutionDir)\3rdparty\OpenGL\includes;$(SolutionDir)\glad\include;$(SolutionDir)\3rdparty\yaml-cpp-0.6.3\include;$(SolutionDir)\3rdparty\nlohmann_json-3.7.3\include;$(Qt_INCLUDEPATH_);$(CUDA_PATH)\include;$(SolutionDir)\3rdparty\websocketpp-master;$(SolutionDir)\3rdparty\boost_1_75_0;$(SolutionDir)\3rdparty\cpp-base64-master;$(QTDIR)\include\QtWebSockets;$(SolutionDir)\3rdparty\libjpegturbo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <WarningLevel>Level1</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>if not exist "$(SolutionDir)build\include\$(ProjectName)" mkdir "$(SolutionDir)build\include\$(ProjectName)"
+copy "$(ProjectDir)*.h" "$(SolutionDir)build\include\$(ProjectName)\"
+
+if not exist "$(SolutionDir)build\lib\$(Platform)\$(Configuration)" mkdir "$(SolutionDir)build\lib\$(Platform)\$(Configuration)"
+move "$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName).lib" "$(SolutionDir)build\lib\$(Platform)\$(Configuration)\"
+
+if not exist "$(SolutionDir)build\bin\$(Platform)\$(Configuration)" mkdir "$(SolutionDir)build\bin\$(Platform)\$(Configuration)"
+copy "$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName).dll" "$(SolutionDir)build\bin\$(Platform)\$(Configuration)\"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
+    <QtInstall>$(DefaultQtVersion)</QtInstall>
+    <QtModules>core;network;widgets;websockets</QtModules>
+    <QtBuildConfig>debug</QtBuildConfig>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
+    <QtInstall>$(DefaultQtVersion)</QtInstall>
+    <QtModules>core;network;widgets;websockets</QtModules>
+    <QtBuildConfig>release</QtBuildConfig>
+  </PropertyGroup>
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
+    <Import Project="$(QtMsBuild)\qt.props" />
+  </ImportGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PreprocessorDefinitions>VIEWERMANAGER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <Optimization>MaxSpeed</Optimization>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PreprocessorDefinitions>VIEWERMANAGER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <QtMoc Include="VolumeMgr.h" />
+    <QtMoc Include="MaskMgr.h" />
+    <QtMoc Include="MPRMgr.h" />
+    <ClInclude Include="ArcBall.h" />
+    <ClInclude Include="base64.h" />
+    <ClInclude Include="build_global_opt.h" />
+    <QtMoc Include="CPRMgr.h" />
+    <ClInclude Include="DVRMgr.h" />
+    <ClInclude Include="DVRRectMgr.h" />
+    <ClInclude Include="GLMgr.h" />
+    <ClInclude Include="global.h" />
+    <QtMoc Include="Mgr.h" />
+    <ClInclude Include="jpge.h" />
+    <QtMoc Include="MPRRectMgr.h" />
+    <ClInclude Include="opengl_utils.h" />
+    <ClInclude Include="RenderingFunctionMgr.h" />
+    <QtMoc Include="Rendering_server.h" />
+    <ClInclude Include="TF.h" />
+    <ClInclude Include="viewermanager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ArcBall.cpp" />
+    <ClCompile Include="base64.cpp" />
+    <ClCompile Include="CPRMgr.cpp" />
+    <ClCompile Include="DVRMgr.cpp" />
+    <ClCompile Include="DVRRectMgr.cpp" />
+    <ClCompile Include="glad.c" />
+    <ClCompile Include="GLMgr.cpp" />
+    <ClCompile Include="jpge.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MaskMgr.cpp" />
+    <ClCompile Include="Mgr.cpp" />
+    <ClCompile Include="MPRMgr.cpp" />
+    <ClCompile Include="MPRRectMgr.cpp" />
+    <ClCompile Include="RenderingFunctionMgr.cpp" />
+    <ClCompile Include="Rendering_server.cpp" />
+    <ClCompile Include="TF.cpp" />
+    <ClCompile Include="VolumeMgr.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

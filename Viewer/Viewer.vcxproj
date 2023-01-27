@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{759C88B5-59EC-4D0A-B3BE-C35B37C4A870}</ProjectGuid>
+    <Keyword>QtVS_v302</Keyword>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0.19041.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.19041.0</WindowsTargetPlatformVersion>
+    <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
+    <Import Project="$(QtMsBuild)\qt_defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
+    <QtInstall>msvc2017_64_14</QtInstall>
+    <QtModules>3dquick;core;gui;opengl;openglextensions;websockets;widgets</QtModules>
+    <QtBuildConfig>debug</QtBuildConfig>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
+    <QtInstall>msvc2017_64_14</QtInstall>
+    <QtModules>core;opengl;network;gui;widgets;websockets;openglextensions</QtModules>
+    <QtBuildConfig>release</QtBuildConfig>
+  </PropertyGroup>
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
+    <Import Project="$(QtMsBuild)\qt.props" />
+  </ImportGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <Optimization>MaxSpeed</Optimization>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)\3rdparty\spdlog-1.8.1\lib\$(Platform)\$(Configuration);$(SolutionDir)build\lib\$(Platform)\$(Configuration);$(Qt_LIBPATH_);$(SolutionDir)\3rdparty\libjpegturbo\lib\x64_Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ViewerManager.lib;CgipCommon.lib;CgipException.lib;CgipIO.lib;spdlogd.lib;$(Qt_LIBS_);$(QTDir)\lib\Qt5Charts.lib;jpeg8.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\libpng-1.6.37\include;$(SolutionDir)\3rdparty\png++-0.2.9\include;$(SolutionDir)\3rdparty\yaml-cpp-0.6.3\include;$(SolutionDir)\3rdparty\spdlog-1.8.1\include;$(SolutionDir)\3rdparty\nlohmann_json-3.7.3\include;$(SolutionDir)\3rdparty\eigen-3.3.7\include;$(SolutionDir)\build\include;$(SolutionDir)\3rdparty\bitmap;$(Qt_INCLUDEPATH_);$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtCore;$(SolutionDir)\3rdparty\glfw-3.3.2\include;$(SolutionDir)\3rdparty\OpenGL\includes;$(SolutionDir)\3rdparty\glad\include;E:\libraries\json-develop\include;$(QTDIR)\include\QtCharts;$(SolutionDir)\3rdparty\libjpegturbo</AdditionalIncludeDirectories>
+      <OpenMPSupport>true</OpenMPSupport>
+    </ClCompile>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Link>
+      <AdditionalDependencies>ViewerManager.lib;CgipCommon.lib;CgipException.lib;CgipIO.lib;spdlog.lib;jpeg8.lib;C:\Qt\5.14.2\msvc2017_64\lib\Qt5OpenGL.lib;C:\Qt\5.14.2\msvc2017_64\lib\Qt5Widgets.lib;$(QTDIR)\lib\Qt5OpenGLExtensions.lib;C:\Qt\5.14.2\msvc2017_64\lib\Qt5Gui.lib;$(QTDIR)\lib\Qt5WebSockets.lib;$(QTDIR)\lib\Qt5Network.lib;$(QTDIR)\lib\Qt5Core.lib;$(QTDIR)\lib\qtmain.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\3rdparty\spdlog-1.8.1\lib\$(Platform)\$(Configuration);$(SolutionDir)build\lib\$(Platform)\$(Configuration);$(Qt_LIBPATH_);$(SolutionDir)\3rdparty\libjpegturbo\lib\x64_Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\libpng-1.6.37\include;$(SolutionDir)\3rdparty\png++-0.2.9\include;$(SolutionDir)\3rdparty\yaml-cpp-0.6.3\include;$(SolutionDir)\3rdparty\spdlog-1.8.1\include;$(SolutionDir)\3rdparty\nlohmann_json-3.7.3\include;$(SolutionDir)\3rdparty\eigen-3.3.7\include;$(SolutionDir)\build\include;$(SolutionDir)\3rdparty\bitmap;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtCore;$(SolutionDir)\3rdparty\glfw-3.3.2\include;$(SolutionDir)\3rdparty\OpenGL\includes;$(SolutionDir)\3rdparty\glad\include;$(QTDIR)\include;$(SolutionDir)\3rdparty\libjpegturbo;$(QTDIR)\include\QtCharts;$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <OpenMPSupport>true</OpenMPSupport>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+    </ClCompile>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="ClickableLabel.cpp" />
+    <ClCompile Include="CPRCircle.cpp" />
+    <ClCompile Include="CPRCurve.cpp" />
+    <ClCompile Include="CPRLine.cpp" />
+    <ClCompile Include="CPRPath.cpp" />
+    <ClCompile Include="CPRPathWidget.cpp" />
+    <ClCompile Include="CPRRect.cpp" />
+    <ClCompile Include="CPRView.cpp" />
+    <ClCompile Include="CPRWidget.cpp" />
+    <ClCompile Include="DVRWidget.cpp" />
+    <ClCompile Include="EllipseItem.cpp" />
+    <ClCompile Include="EllipseItem_color.cpp" />
+    <ClCompile Include="EllipseItem_otf.cpp" />
+    <ClCompile Include="FunctionWidget.cpp" />
+    <ClCompile Include="GraphicsCurve.cpp" />
+    <ClCompile Include="InputVolumeDimensionDialog.cpp" />
+    <ClCompile Include="jpgd.cpp" />
+    <ClCompile Include="LineItem.cpp" />
+    <ClCompile Include="LineItem_MPR.cpp" />
+    <ClCompile Include="LocalFileSystemFilterProxyModel.cpp" />
+    <ClCompile Include="MaskLayerWidget.cpp" />
+    <ClCompile Include="MPR_GuideLine.cpp" />
+    <ClCompile Include="OTFPolygon.cpp" />
+    <ClCompile Include="OTFPresetViewer.cpp" />
+    <ClCompile Include="OTFView.cpp" />
+    <ClCompile Include="OTFWidget.cpp" />
+    <ClCompile Include="PolygonItem.cpp" />
+    <ClCompile Include="RemoteFileTree.cpp" />
+    <ClCompile Include="RemoteTreeModel.cpp" />
+    <ClCompile Include="TableModel.cpp" />
+    <ClCompile Include="SelectTableDialog.cpp" />
+    <ClCompile Include="SliceWidget.cpp" />
+    <ClCompile Include="TextItem.cpp" />
+    <ClCompile Include="Toolbar.cpp" />
+    <ClCompile Include="ViewLayout.cpp" />
+    <ClCompile Include="WelcomeWindow.cpp" />
+    <ClCompile Include="WidgetText.cpp" />
+    <QtRcc Include="Viewer.qrc" />
+    <QtUic Include="Viewer.ui" />
+    <QtMoc Include="Viewer.h" />
+    <ClCompile Include="Viewer.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="ViewLayout.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="SliceWidget.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="WelcomeWindow.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="Toolbar.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="MaskLayerWidget.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="build_global_opt.h" />
+    <QtMoc Include="ClickableLabel.h" />
+    <QtMoc Include="CPRPathWidget.h" />
+    <QtMoc Include="CPRWidget.h" />
+    <QtMoc Include="CPRCurve.h" />
+    <QtMoc Include="CPRView.h" />
+    <QtMoc Include="CPRCircle.h" />
+    <QtMoc Include="CPRLine.h" />
+    <QtMoc Include="CPRPath.h" />
+    <QtMoc Include="GraphicsCurve.h" />
+    <QtMoc Include="CPRRect.h" />
+    <QtMoc Include="MPR_GuideLine.h" />
+    <QtMoc Include="LineItem_MPR.h" />
+    <ClInclude Include="iniparser.hpp" />
+    <ClInclude Include="UI_OTFPresetViewer.h" />
+    <QtMoc Include="WidgetText.h" />
+    <QtMoc Include="OTFView.h" />
+    <QtMoc Include="OTFPresetViewer.h" />
+    <ClInclude Include="TextItem.h" />
+    <QtMoc Include="DVRWidget.h" />
+    <QtMoc Include="FunctionWidget.h" />
+    <QtMoc Include="EllipseItem.h" />
+    <QtMoc Include="EllipseItem_color.h" />
+    <QtMoc Include="EllipseItem_otf.h" />
+    <ClInclude Include="jpgd.h" />
+    <QtMoc Include="LineItem.h" />
+    <ClInclude Include="OTF.h" />
+    <QtMoc Include="OTFPolygon.h" />
+    <QtMoc Include="OTFWidget.h" />
+    <QtMoc Include="PolygonItem.h" />
+    <ClInclude Include="RemoteFileTree.h" />
+    <ClInclude Include="RemoteTreeModel.h" />
+    <QtMoc Include="LocalFileSystemFilterProxyModel.h" />
+    <QtMoc Include="InputVolumeDimensionDialog.h" />
+    <QtMoc Include="TableModel.h" />
+    <QtMoc Include="SelectTableDialog.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
+</Project>
